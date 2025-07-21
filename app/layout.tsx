@@ -1,0 +1,76 @@
+"use client";
+
+import { Geist, Geist_Mono } from "next/font/google";
+import { ReactQueryClientProvider } from "@/utils/react-query-provider";
+import { Toaster } from "react-hot-toast";
+import "./globals.css";
+import Link from "next/link";
+import { AutocompleteProduct } from "@/components/search-product"
+import { AppSidebar } from "@/components/app-sidebar";
+import { Separator } from "@/components/ui/separator";
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
+import ButtonCart from "@/components/ui/buttonCart"
+import { useState } from "react";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <html lang="en">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <ReactQueryClientProvider>
+          <SidebarProvider
+            open={isOpen}
+            onOpenChange={setIsOpen}
+            className=""
+            style={{}}
+          >
+            <AppSidebar className="z-50" />
+            <SidebarInset className="flex flex-col min-h-screen relative z-0">
+              <header className="flex h-16 shrink-0 items-center justify-between gap-2 border-b px-4 relative z-10">
+                <Link href="/" className="font-sans flex items-center justify-center bg-white p-3 rounded-full hover:bg-gray-200">
+                  Home
+                </Link>
+                <AutocompleteProduct />
+                  <ButtonCart />
+                <div className="flex flex-row items-center gap-2 justify-between">
+                  <Separator
+                    orientation="vertical"
+                    className="mr-2 data-[orientation=vertical]:h-4"
+                  />
+                  <SidebarTrigger
+                    onClick={() => setIsOpen(!isOpen)}
+                    className="-ml-1"
+                  />
+                </div>
+              </header>
+              <div onClick={() => setIsOpen(false)}
+                className="flex flex-1 flex-col gap-4 p-4 relative z-10">{children}</div>
+            </SidebarInset>
+          </SidebarProvider>
+          <Toaster position="top-right" reverseOrder={false} />
+        </ReactQueryClientProvider>
+      </body>
+    </html>
+  );
+}

@@ -1,0 +1,150 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String     @id @default(uuid())
+  name      String
+  email     String     @unique
+  password  String
+  role      Role       @default(USER)
+  image     String?
+  orders    Order[]
+  cartItems CartItem[]
+  reviews   Review[]
+  createdAt DateTime   @default(now())
+}
+
+model Category {
+  id        String     @id @default(uuid())
+  name      String
+  slug      String     @unique
+  products  Product[]
+}
+
+model Product {
+  id          String     @id @default(uuid())
+  name        String
+  slug        String     @unique
+  description String
+  price       Int
+  stock       Int
+  image       String?
+  categoryId  String
+  category    Category   @relation(fields: [categoryId], references: [id])
+  reviews     Review[]
+  cartItems   CartItem[]
+  orderItems  OrderItem[]
+  createdAt   DateTime   @default(now())
+}
+
+model CartItem {
+  id        String   @id @default(uuid())
+  userId    String
+  productId String
+  quantity  Int
+
+  user      User     @relation(fields: [userId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
+
+  @@unique([userId, productId])
+}
+
+model Discount {
+  id          String    @id @default(uuid())
+  code        String    @unique 
+  description String?
+  percentage  Int?
+  amount      Int?      
+  active      Boolean   @default(true)
+  startDate   DateTime
+  endDate     DateTime
+  orders      Order[]
+  createdAt   DateTime  @default(now())
+}
+
+
+model Order {
+  id               String       @id @default(uuid())
+  userId           String
+  totalPrice       Int
+  status           OrderStatus  @default(PENDING)
+  shippingAddress  String       @default("")
+  items            OrderItem[]
+  payment          Payment?
+  discountId       String?      
+  discount         Discount?    @relation(fields: [discountId], references: [id])
+  createdAt        DateTime     @default(now())
+
+  user             User         @relation(fields: [userId], references: [id])
+}
+
+
+
+model BannerPromotion {
+  id          String    @id @default(uuid())
+  title       String
+  description String
+  image       String   
+  linkUrl     String?   
+  active      Boolean   @default(true)
+  startDate   DateTime
+  endDate     DateTime
+  createdAt   DateTime  @default(now())
+}
+
+
+
+model OrderItem {
+  id        String   @id @default(uuid())
+  orderId   String
+  productId String
+  quantity  Int
+  price     Int      
+
+  order     Order    @relation(fields: [orderId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
+}
+
+model Payment {
+  id         String   @id @default(uuid())
+  orderId    String   @unique
+  method     String
+  status     String
+  paidAt     DateTime?
+  snapToken  String?
+
+  order      Order    @relation(fields: [orderId], references: [id])
+}
+
+model Review {
+  id        String   @id @default(uuid())
+  userId    String
+  productId String
+  rating    Int      
+  comment   String
+
+  user      User     @relation(fields: [userId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
+  createdAt DateTime @default(now())
+
+  @@unique([userId, productId])
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  FAILED
+  SHIPPED
+  COMPLETED
+}
