@@ -11,29 +11,31 @@ cloudinary.config({
 export async function POST(req: NextRequest) {
   const data = await req.formData();
   const file = data.get("file") as Blob;
-  if (!file) return NextResponse.json({ error: "No file provided" }, { status: 400 });
+  if (!file) {
+    return NextResponse.json({ error: "No file provided" }, { status: 400 });
+  }
 
   const arrayBuffer = await file.arrayBuffer();
   const buffer = Buffer.from(arrayBuffer);
 
-  const stream = cloudinary.uploader.upload_stream({ folder: "products" }, (err, result) => {
-    if (err || !result) {
-      console.error(err);
-      return;
-    }
-  });
-
-  const readable = Readable.from(buffer);
-  readable.pipe(stream);
-
-  return new Promise((resolve) => {
-    cloudinary.uploader.upload_stream({ folder: "products" }, (err, result) => {
-      if (err || !result) {
-        console.error(err);
-        resolve(NextResponse.json({ error: "Upload failed" }, { status: 500 }));
-      } else {
-        resolve(NextResponse.json({ secure_url: result.secure_url }));
+  // Return Promise yang resolve ke Response
+  return new Promise<Response>((resolve) => {
+    const uploadStream = cloudinary.uploader.upload_stream(
+      { folder: "products" },
+      (err, result) => {
+        if (err || !result) {
+          console.error(err);
+          resolve(
+            NextResponse.json({ error: "Upload failed" }, { status: 500 })
+          );
+        } else {
+          resolve(
+            NextResponse.json({ secure_url: result.secure_url }, { status: 200 })
+          );
+        }
       }
-    }).end(buffer);
+    );
+
+    Readable.from(buffer).pipe(uploadStream);
   });
 }
