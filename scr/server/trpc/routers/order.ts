@@ -66,7 +66,7 @@ export const orderRouter = router({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      return ctx.prisma.order.create({
+      const order = await ctx.prisma.order.create({
         data: {
           userId: ctx.user.id,
           totalPrice: input.totalPrice,
@@ -80,5 +80,6 @@ export const orderRouter = router({
           },
         },
       });
+      return order
     }),
 });

@@ -18,9 +18,12 @@ import {
 export default function CartItem() {
   const { data: cartItems } = trpc.cartItem.getAll.useQuery();
   const [code, setCode] = useState("")
-  const { data: discountData } = trpc.discount.getByCode.useQuery( code );
+  const { data: discountData } = trpc.discount.getByCode.useQuery(code);
   const utils = trpc.useUtils();
   const [shippingAddress, setShippingAddress] = useState("");
+  const [phoneNumber, setphoneNumber] = useState("")
+  const { data: user } = trpc.auth.getUser.useQuery();
+  const { mutateAsync: createPayment } = trpc.payment.createPayment.useMutation();
   const [shippingMethod, setShippingMethod] = useState<"free" | "priority">(
     "free"
   );
@@ -44,7 +47,7 @@ export default function CartItem() {
     },
   });
 
-  const { mutate: createOrder } = trpc.order.create.useMutation({
+  const { mutateAsync: createOrderAsync } = trpc.order.create.useMutation({
     onSuccess: () => {
       utils.cartItem.getAll.invalidate();
       toast.success("Order created!");
@@ -87,9 +90,12 @@ export default function CartItem() {
 
   const grandTotal = totalPrice - discountValue + shipping;
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     if (!cartItems || cartItems.length === 0) {
       return toast.error("Your cart is empty!");
+    }
+    if (!shippingAddress) {
+      return toast.error("Address is required!");
     }
 
     const items = cartItems.map((item) => ({
@@ -98,12 +104,38 @@ export default function CartItem() {
       price: item.product.price,
     }));
 
-    createOrder({
-      items,
-      shippingAddress,
-      totalPrice: grandTotal,
-    });
+    try {
+      const order = await createOrderAsync({
+        items,
+        shippingAddress,
+        totalPrice: grandTotal,
+      });
+
+      if (!order.id) {
+        return toast.error("Failed to get Order ID!");
+      }
+
+      const email = user?.email ?? "";
+      const payment = await createPayment({
+        amount: grandTotal,
+        orderId: order.id,
+        productDetails: "Pembelian dari ChillShop",
+        email: email, 
+        phoneNumber: phoneNumber,   
+      });
+
+      if (!payment.paymentUrl) {
+        return toast.error("Failed to create payment!");
+      }
+
+      window.location.href = payment.paymentUrl;
+
+    } catch (err) {
+      toast.error("Checkout failed!");
+      console.error(err);
+    }
   };
+
 
   return (
     <div className="p-6 flex gap-6 justify-between">
@@ -222,6 +254,8 @@ export default function CartItem() {
               </SelectItem>
             </SelectContent>
           </Select>
+          <Label className="w-full font-sans ">Phone Number</Label>
+          <Input type="text" className='' value={phoneNumber} onChange={(e:any) => setphoneNumber(e.target.value)} placeholder="Masukan nomer hp" />
           <Label className="w-full font-sans ">Add Address</Label>
           <Input
             type="text"
@@ -231,7 +265,7 @@ export default function CartItem() {
             onChange={(e: any) => setShippingAddress(e.target.value)}
           />
           <Label className="">Discount Code</Label>
-          <Input type="text" className="" value={code} onChange={(e : any) => setCode(e.target.value)} placeholder="Masukkan kode diskon" />
+          <Input type="text" className="" value={code} onChange={(e: any) => setCode(e.target.value)} placeholder="Masukkan kode diskon" />
 
         </div>
         <hr />

@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { publicProcedure, router } from "../trpc";
 import { verifyPassword, signToken } from "@/lib/auth";
+import { protectedProcedure } from "../procedure";
 import { hashPassword } from "@/lib/auth";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
@@ -38,9 +39,17 @@ export const authRouter = router({
         user: { id: user.id, email: user.email, role: user.role },
       };
     }),
-  getUser: publicProcedure.query(({ ctx }) => {
-    return ctx.user;
-  }),
+getUser: protectedProcedure.query(({ ctx }) => {
+  return ctx.prisma.user.findUnique({
+    where: { id: ctx.user.id },
+    select: {
+      id: true,
+      role: true,
+      email: true,
+    },
+  });
+}),
+
 
   register: publicProcedure
     .input(
