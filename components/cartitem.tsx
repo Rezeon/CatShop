@@ -22,8 +22,13 @@ export default function CartItem() {
   const utils = trpc.useUtils();
   const [shippingAddress, setShippingAddress] = useState("");
   const [phoneNumber, setphoneNumber] = useState("")
+  const [firstName, setfirstName] = useState("")
+  const [lastName, setlastName] = useState("")
+  const [city, setcity] = useState("");
+  const [postalCode, setpostalCode] = useState("");
   const { data: user } = trpc.auth.getUser.useQuery();
-  const { mutateAsync: createPayment } = trpc.payment.createPayment.useMutation();
+  const { mutateAsync: createPayment } = trpc.payment.createInvoice.useMutation();
+
   const [shippingMethod, setShippingMethod] = useState<"free" | "priority">(
     "free"
   );
@@ -97,31 +102,51 @@ export default function CartItem() {
     if (!shippingAddress) {
       return toast.error("Address is required!");
     }
+    if (!phoneNumber) {
+      return toast.error("Phone number is required!");
+    }
 
     const items = cartItems.map((item) => ({
+      name: item.product.name,
+      price: item.product.price,
+      quantity: item.quantity,
+    }));
+
+    const orderItems = cartItems.map((item) => ({
       productId: item.productId,
       quantity: item.quantity,
       price: item.product.price,
     }));
 
+    const order = await createOrderAsync({
+      items: orderItems,
+      shippingAddress,
+      totalPrice: grandTotal,
+    });
+
+    if (!order.id) {
+      return toast.error("Failed to create Order!");
+    }
+
+    const email = user?.email ?? "";
+
     try {
-      const order = await createOrderAsync({
-        items,
-        shippingAddress,
-        totalPrice: grandTotal,
-      });
-
-      if (!order.id) {
-        return toast.error("Failed to get Order ID!");
-      }
-
-      const email = user?.email ?? "";
       const payment = await createPayment({
-        amount: grandTotal,
+        paymentAmount: grandTotal,
         orderId: order.id,
         productDetails: "Pembelian dari ChillShop",
-        email: email, 
-        phoneNumber: phoneNumber,   
+        email,
+        phoneNumber,
+        customerVaName: `${firstName} ${lastName}`,
+        items,
+        customerDetail: {
+          firstName: firstName,
+          lastName: lastName,
+          address: shippingAddress,
+          city: city, 
+          postalCode: postalCode, 
+          countryCode: "ID",
+        },
       });
 
       if (!payment.paymentUrl) {
@@ -129,12 +154,12 @@ export default function CartItem() {
       }
 
       window.location.href = payment.paymentUrl;
-
     } catch (err) {
       toast.error("Checkout failed!");
       console.error(err);
     }
   };
+
 
 
   return (
@@ -255,7 +280,7 @@ export default function CartItem() {
             </SelectContent>
           </Select>
           <Label className="w-full font-sans ">Phone Number</Label>
-          <Input type="text" className='' value={phoneNumber} onChange={(e:any) => setphoneNumber(e.target.value)} placeholder="Masukan nomer hp" />
+          <Input type="text" className='' value={phoneNumber} onChange={(e: any) => setphoneNumber(e.target.value)} placeholder="Masukan nomer hp" />
           <Label className="w-full font-sans ">Add Address</Label>
           <Input
             type="text"
@@ -264,6 +289,18 @@ export default function CartItem() {
             className="w-full"
             onChange={(e: any) => setShippingAddress(e.target.value)}
           />
+          <Label className=''>City</Label>
+          <Input className='' type="text" value={city} onChange={(e:any) => setcity(e.target.value)} />
+
+          <Label className=''>Postal Code</Label>
+          <Input className='' type="text" value={postalCode} onChange={(e:any) => setpostalCode(e.target.value)} />
+
+          <Label className=''>First Name</Label>
+          <Input className='' type="text" value={firstName} onChange={(e:any) => setfirstName(e.target.value)} />
+
+          <Label className=''>Last Name</Label>
+          <Input className='' type="text" value={lastName} onChange={(e:any) => setlastName(e.target.value)} />
+
           <Label className="">Discount Code</Label>
           <Input type="text" className="" value={code} onChange={(e: any) => setCode(e.target.value)} placeholder="Masukkan kode diskon" />
 
