@@ -48,7 +48,7 @@ export default function RootLayout({
             <AppSidebar className="z-50" />
             <SidebarInset className="flex flex-col min-h-screen relative z-0">
               <header className="flex h-16 shrink-0 items-center justify-between gap-2 border-b px-4 relative z-10">
-                <Link href="/" className="font-sans flex items-center justify-center bg-white p-3 rounded-full hover:bg-gray-200">
+                <Link href="/" className="font-sans flex items-center justify-center border bg-white pr-3 pl-3 pt-1.5 pb-1.5 rounded-full hover:bg-gray-200">
                   Home
                 </Link>
                 <AutocompleteProduct />
@@ -65,7 +65,7 @@ export default function RootLayout({
                 </div>
               </header>
               <div onClick={() => setIsOpen(false)}
-                className="flex flex-1 flex-col gap-4 p-4 relative z-10">{children}</div>
+                className="flex flex-1 flex-col gap-4 p-4 relative">{children}</div>
             </SidebarInset>
           </SidebarProvider>
           <Toaster position="top-right" reverseOrder={false} />

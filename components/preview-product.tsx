@@ -8,9 +8,9 @@ import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { cva } from "class-variance-authority";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { cn } from "@/lib/utils";
 import { Slot } from "@radix-ui/react-slot"
+import LoadingPage from "./ui/loading";
 
 const variantPrevew = cva(
   "",
@@ -38,8 +38,7 @@ export default function PreviewProduct({
   products?: any;
   variant?: "scrl" | "gidr";
   asChild?: boolean;
-} & React.HTMLAttributes<HTMLDivElement>) 
-{
+} & React.HTMLAttributes<HTMLDivElement>) {
   const Comp = asChild ? Slot : "preview"
   const utils = trpc.useUtils();
   const { data: reviews } = trpc.review.getAll.useQuery();
@@ -57,6 +56,11 @@ export default function PreviewProduct({
       toast.error("Please add item first");
     },
   });
+  if (!products || products.length === 0) return (
+    <div className="w-full h-screen flex justify-center items-center">
+      <LoadingPage />
+    </div>
+  );
 
   const handleAddToCart = (productId: string, quantity: number) => {
     addOrUpdateCart({

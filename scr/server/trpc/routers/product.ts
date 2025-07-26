@@ -16,20 +16,19 @@ export const productRouter = router({
         include: { category: true },
       });
     }),
-    getByName: publicProcedure
-  .input(z.object({ q: z.string().min(1) }))
-  .query(async ({ ctx, input }) => {
-    return ctx.prisma.product.findMany({
-      where: {
-        name: {
-          contains: input.q,
-          mode: "insensitive",
+  getByName: publicProcedure
+    .input(z.object({ q: z.string().min(1) }))
+    .query(async ({ ctx, input }) => {
+      return ctx.prisma.product.findMany({
+        where: {
+          name: {
+            contains: input.q,
+            mode: "insensitive",
+          },
         },
-      },
-      take: 10,
-    });
-  }),
-
+        take: 10,
+      });
+    }),
 
   getById: publicProcedure.input(z.string()).query(({ ctx, input }) => {
     return ctx.prisma.product.findUnique({
