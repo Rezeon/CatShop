@@ -68,7 +68,7 @@ export default function RootLayout({
                 className="flex flex-1 flex-col gap-4 p-4 relative">{children}</div>
             </SidebarInset>
           </SidebarProvider>
-          <Toaster position="top-right" reverseOrder={false} />
+          <Toaster position="top-left" reverseOrder={false} />
         </ReactQueryClientProvider>
       </body>
     </html>

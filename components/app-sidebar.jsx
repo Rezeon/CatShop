@@ -31,11 +31,12 @@ const data = {
       ],
     },
     {
-      title: "Building Your Application",
+      title: "Category",
       url: "#",
       items: [
-        { title: "Routing", url: "#" },
-        { title: "Data Fetching", url: "#", isActive: true },
+        { title: "Clothes", url: "/category/baju" },
+        { title: "Shoes", url: "/category/sepatu" },
+        { title: "Hat", url: "/category/topi" },
         
       ],
     },

@@ -15,16 +15,26 @@ import LoadingPage from "./ui/loading";
 
 
 export default function AdsProduct() {
-    const { data: products } = trpc.product.getAll.useQuery();
+    const { data: products, isLoading } = trpc.product.getAll.useQuery();
     const router = useRouter();
     const [index, setIndex] = useState(0);
 
-    if (!products || products.length === 0) return (
-        <div className="w-full h-screen flex justify-center items-center">
-            <LoadingPage />
-        </div>
-    );
 
+    if (isLoading) {
+        return (
+            <div className="w-full h-screen flex justify-center items-center">
+                <LoadingPage />
+            </div>
+        );
+    }
+
+    if (!products || products.length === 0) {
+        return (
+            <div className="w-full h-screen flex justify-center items-center">
+                <p className="text-gray-500 font-sans">No products found.</p>
+            </div>
+        );
+    }
     const current = products[index];
 
     const handlePrev = () => {
