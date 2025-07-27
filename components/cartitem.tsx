@@ -163,7 +163,7 @@ export default function CartItem() {
 
 
   return (
-    <div className="p-6 flex gap-6 sm:flex-col md:flex-col sm:justify-center md:justify-center sm:items-center md:items-center lg:justify-between">
+    <div className="p-6 flex gap-6 sm:flex-col md:flex-col sm:justify-center md:justify-center sm:items-center md:items-center lg:flex-row lg:items-baseline lg:justify-between">
       <div className="sm:w-[90%] md:w-[90%] lg:w-[50%] flex flex-col">
         <div className="font-bold text-[20px] w-full p-4 font-sans flex items-center text-center">
           Cart : {totalItem}
