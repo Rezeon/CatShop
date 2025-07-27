@@ -12,10 +12,11 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import LoadingPage from "./ui/loading";
-
+import DiscountSlider from "./ui/discount";
 
 export default function AdsProduct() {
     const { data: products, isLoading } = trpc.product.getAll.useQuery();
+    const { data: discount } = trpc.discount.getAll.useQuery();
     const router = useRouter();
     const [index, setIndex] = useState(0);
 
@@ -50,9 +51,9 @@ export default function AdsProduct() {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center p-4">
-            <Card className="w-full h-1/3 p-10 flex flex-row justify-between items-center gap-4 rounded-none border-none shadow-none relative">
-                <div className="w-1/2 h-1/2 flex flex-col gap-4 ">
+        <div className="flex flex-col items-center justify-center lg:p-4">
+            <Card className="sm:w-[95%] md:w-[90%] lg:w-full  h-1/3 md:p-2 lg:p-10 flex sm:flex-col-reverse md:flex-col-reverse lg:flex-row justify-between items-center gap-4 rounded-none border-none shadow-none relative">
+                <div className="sm:w-full md:w-full lg:w-1/2 h-1/2 flex flex-col gap-4 ">
                     <Card className="h-1/3 w-full  font-sans p-4 border-none shadow-none bg-gray-100">
                         <AnimatePresence mode="wait">
                             <motion.h2
@@ -104,7 +105,7 @@ export default function AdsProduct() {
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -40 }}
                         transition={{ duration: 0.5 }}
-                        className="w-1/2 relative"
+                        className="sm:w-full md:w-full lg:w-1/2 relative"
                     >
                         <Card className="rounded-none relative min-w-full max-w-1/2 p-4 aspect-square">
 
@@ -126,6 +127,7 @@ export default function AdsProduct() {
                     </motion.div>
                 </AnimatePresence>
             </Card>
+            <DiscountSlider discount={discount ?? []} />
         </div>
     );
 }

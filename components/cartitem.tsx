@@ -163,8 +163,8 @@ export default function CartItem() {
 
 
   return (
-    <div className="p-6 flex gap-6 justify-between">
-      <div className="w-[50%] flex flex-col">
+    <div className="p-6 flex gap-6 sm:flex-col md:flex-col sm:justify-center md:justify-center sm:items-center md:items-center lg:justify-between">
+      <div className="sm:w-[90%] md:w-[90%] lg:w-[50%] flex flex-col">
         <div className="font-bold text-[20px] w-full p-4 font-sans flex items-center text-center">
           Cart : {totalItem}
         </div>
@@ -244,7 +244,7 @@ export default function CartItem() {
           ))}
         </div>
       </div>
-      <div className="w-[30%] h-9/12 gap-10 flex flex-col p-8 border">
+      <div className="sm:w-[90%] md:w-[90%] lg:w-[30%] h-9/12 gap-10 flex flex-col p-8 border">
         <p className="font-bold text-[16px] font-sans">Order Summary</p>
         <div
           className="flex flex-col gap-2 mt-4 font-sans

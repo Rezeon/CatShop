@@ -25,7 +25,7 @@ export function AutocompleteProduct() {
       <div className="relative">
         
         <SearchForm
-        className="w-[20%]"
+        className="sm:w-[40%] md:w-[40%] lg:w-[20%]"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />

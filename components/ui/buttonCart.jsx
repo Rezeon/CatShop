@@ -17,7 +17,7 @@ export default function ButtonCart() {
     <Button
       variant="vancy"
       size="default"
-      className="w-[5%] h-full border-none hover:bg-black rounded-none flex relative group"
+      className="sm:w-[10%] md:w-[10%] lg:w-[5%] h-full border-none hover:bg-black rounded-none flex relative group"
       onClick={handleRoute}
     >
       <Image
