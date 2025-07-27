@@ -121,12 +121,12 @@ export default function Page() {
         </div>
         <ScrollBar className="" orientation="horizontal" />
       </ScrollArea>
-      <div className="flex justify-center flex-col w-full h-1/4 p-10">
+      <div className="flex justify-center flex-col w-full h-1/4 p-4 md:p-8 lg:p-10">
         <div className="flex flex-col gap-6 w-full p-4">
           <Label className=" font-bold text-2xl " >Cat-Shop.</Label>
           <p className="text-sm font-medium text-gray-400" >At Klothink, we breathe life into fashion, blending creativity with commitment. Our journey is fueled by a dedication to delivering unparalleled style and quality. Join us in redefining fashion and embracing a community where every purchase tells a story.</p>
         </div>
-        <div className="grid sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 m-3 border grid-rows-2 w-full p-3 bg-gray-100 rounded-lg">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 m-3 border grid-rows-2 w-full p-3 bg-gray-100 rounded-lg">
           {pass.name.map((item: any) => (
             <div key={item.title} className=" items-start w-[95%] font-sans border p-4 m-2 bg-white rounded-lg flex flex-col gap-6" >
               <AnimatePresence mode="wait">
@@ -159,7 +159,7 @@ export default function Page() {
           <Label className=" font-bold text-2xl " >SEAMLESS EXPERIEANCE</Label>
           <p className="text-sm font-medium text-gray-400" >At Klothink, we`ve designed a straightforward shopping experience to make fashion accessible. Explore the journey from discovering the latest trends to receiving your handpicked styles with ease.</p>
         </div>
-        <div className="md:grid lg:grid sm:grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 w-full p-4 border shadow rounded-lg">
+        <div className="md:grid lg:grid grid gap-4 grid-cols-2 md:grid-cols-2 lg:grid-cols-4 w-full p-4 border shadow rounded-lg">
           {pass.experience.map((item) => (
             <div key={item.no} className="w-[95%] bg-gray-100 flex flex-col gap-2 border p-2 rounded-lg">
               <AnimatePresence mode="wait">

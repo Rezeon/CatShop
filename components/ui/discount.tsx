@@ -54,14 +54,14 @@ export default function DiscountSlider({ discount }: { discount: Product[] }) {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -50 }}
                     transition={{ duration: 0.5 }}
-                    className="text-center w-full flex gap-1 text-sm justify-center"
+                    className="text-center w-full items-center flex gap-1 text-[10px] md:text-sm lg:text-sm justify-center"
                 >
-                    <p>{current.description}</p><br />
-                    <p>Rp{current.amount}</p>{" "}
-                    <p>{current.percentage}%</p>{" "}
-                    <p>Start at: {formattedStart}</p>
-                    <p>End at: {formattedEnd}</p>
-                    <p>code discount :{current.code}</p>
+                    <p>{current.description}</p><br /> |
+                    <p>Rp{current.amount}</p> 
+                    <p>{current.percentage}%</p> |
+                    <p>Start at: {formattedStart}</p> |
+                    <p>End at: {formattedEnd}</p> |
+                    <p>code discount :{current.code}</p> |
 
                 </motion.div>
             </AnimatePresence>

@@ -52,8 +52,8 @@ export default function AdsProduct() {
 
     return (
         <div className="flex flex-col items-center justify-center lg:p-4">
-            <Card className="sm:w-[95%] md:w-[90%] lg:w-full  h-1/3 md:p-2 lg:p-10 flex sm:flex-col-reverse md:flex-col-reverse lg:flex-row justify-between items-center gap-4 rounded-none border-none shadow-none relative">
-                <div className="sm:w-full md:w-full lg:w-1/2 h-1/2 flex flex-col gap-4 ">
+            <Card className="w-[95%] md:w-[90%] lg:w-full h-100vh md:h-100vh   lg:h-1/3 md:p-2 lg:p-10 flex flex-col-reverse md:flex-col-reverse lg:flex-row justify-between items-center gap-4 rounded-none border-none shadow-none relative">
+                <div className="w-full md:w-full lg:w-1/2 h-1/2 flex flex-col gap-4 ">
                     <Card className="h-1/3 w-full  font-sans p-4 border-none shadow-none bg-gray-100">
                         <AnimatePresence mode="wait">
                             <motion.h2
@@ -80,20 +80,20 @@ export default function AdsProduct() {
                     </Card>
                     <div className=" w-full h-1/2 p-1 gap-2 grid grid-cols-2 ">
                         <Card className="w-full   h-fit flex flex-col items-center  gap-2 rounded-none">
-                            <CardTitle className="font-bold text-3xl font-mono">24/7</CardTitle>
-                            <CardDescription className='font-mono text-gray-400 text-sm'>Shoping Convinience</CardDescription>
+                            <CardTitle className="font-bold text-2xl md:text-2xl lg:text-3xl font-mono">24/7</CardTitle>
+                            <CardDescription className='font-mono text-gray-400 text-[10px] md:text-sm lg:text-sm'>Shoping Convinience</CardDescription>
                         </Card>
                         <Card className="w-full   h-fit flex flex-col items-center  gap-2 rounded-none">
-                            <CardTitle className="font-bold text-3xl font-mono">OVER 1000+</CardTitle>
-                            <CardDescription className='font-mono text-gray-400 text-sm'>Trendsetting Styles</CardDescription>
+                            <CardTitle className="font-bold text-2xl md:text-2xl lg:text-3xl font-mono">OVER 1000+</CardTitle>
+                            <CardDescription className='font-mono text-gray-400 text-[10px] md:text-sm lg:text-sm'>Trendsetting Styles</CardDescription>
                         </Card>
                         <Card className="w-full   h-fit flex flex-col items-center  gap-2 rounded-none">
-                            <CardTitle className="font-bold text-3xl font-mono">99%</CardTitle>
-                            <CardDescription className='font-mono text-gray-400 text-sm'>Customer Satisfaction Rate</CardDescription>
+                            <CardTitle className="font-bold text-2xl md:text-2xl lg:text-3xl font-mono">99%</CardTitle>
+                            <CardDescription className='font-mono text-gray-400 text-[10px] md:text-sm lg:text-sm'>Customer Satisfaction Rate</CardDescription>
                         </Card>
                         <Card className="w-full   h-fit flex flex-col items-center  gap-2 rounded-none">
-                            <CardTitle className="font-bold text-3xl font-mono">30-DAY</CardTitle>
-                            <CardDescription className='font-mono text-gray-400 text-sm'>Hassle-Free Returns</CardDescription>
+                            <CardTitle className="font-bold text-2xl md:text-2xl lg:text-3xl font-mono">30-DAY</CardTitle>
+                            <CardDescription className='font-mono text-gray-400 text-[10px] md:text-sm lg:text-sm'>Hassle-Free Returns</CardDescription>
                         </Card>
 
                     </div>
@@ -105,9 +105,9 @@ export default function AdsProduct() {
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -40 }}
                         transition={{ duration: 0.5 }}
-                        className="sm:w-full md:w-full lg:w-1/2 relative"
+                        className="w-full md:w-full  lg:w-1/2 relative"
                     >
-                        <Card className="rounded-none relative min-w-full max-w-1/2 p-4 aspect-square">
+                        <Card className="rounded-none relative w-full md:min-w-full lg:max-w-1/2 p-4 aspect-square">
 
                             <Image
                                 src={current.image || "/placeholder.jpg"}

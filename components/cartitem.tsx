@@ -163,8 +163,8 @@ export default function CartItem() {
 
 
   return (
-    <div className="p-6 flex gap-6 sm:flex-col md:flex-col sm:justify-center md:justify-center sm:items-center md:items-center lg:flex-row lg:items-baseline lg:justify-between">
-      <div className="sm:w-[90%] md:w-[90%] lg:w-[50%] flex flex-col">
+    <div className="p-6 flex gap-6 flex-col md:flex-col justify-center md:justify-center items-center md:items-center lg:flex-row lg:items-baseline lg:justify-between">
+      <div className="w-[100%] md:w-[90%] lg:w-[50%] flex flex-col">
         <div className="font-bold text-[20px] w-full p-4 font-sans flex items-center text-center">
           Cart : {totalItem}
         </div>
@@ -172,7 +172,7 @@ export default function CartItem() {
         <div className="flex flex-col gap-2 p-4">
           {cartItems?.map((item) => (
             <div key={item.id}>
-              <div className="p-2 flex w-full h-[160px] border">
+              <div className="p-2 flex w-full h-[120px] md:h-[120px] lg:h-[160px] border">
                 <div className="relative aspect-square mr-2">
                   <Image
                     src={item.product.image ?? "/placeholder.jpg"}
@@ -182,21 +182,21 @@ export default function CartItem() {
                   />
                 </div>
 
-                <div className="w-[80%] h-full flex flex-col gap-4 justify-start">
+                <div className="w-[100%] h-full flex flex-col gap-1 md:gap-2 lg:gap-4 justify-start">
                   <div className="w-full flex items-center justify-between p-1">
-                    <p className="font-bold text-[16px] font-sans">
+                    <p className="font-bold text-[12px] md:text-[12px] lg:text-[16px] font-sans">
                       {item.product.name}
                     </p>
                     <p className="font-bold text-[16px] font-sans">
                       Rp{item.product.price.toLocaleString("id-ID")}
                     </p>
                   </div>
-                  <div className="flex flex-col w-full gap-2 p-1">
+                  <div className="flex flex-col md:flex-col lg:flex-col w-full sm:gap-0.5 md:gap-0.5 lg:gap-2 p-1">
                     <p className="text-[10px] font-semibold text-gray-500">
                       Stock: {item.product.stock}
                     </p>
-                    <div className="w-full flex items-center justify-between">
-                      <div className="w-[40%] h-[40px] flex items-center border mt-5">
+                    <div className="w-full flex flex-row md:flex-row lg:flex-row lg:items-center justify-between">
+                      <div className="w-[40%] h-[40px] flex items-center border mt-1 md:mt-1 lg:mt-5">
                         <div
                           onClick={() =>
                             handleUpdateQuantity(
@@ -205,11 +205,11 @@ export default function CartItem() {
                               item.product.stock
                             )
                           }
-                          className="w-1/3 cursor-pointer h-full flex justify-center items-center text-center font-semibold font-sans text-[24px] hover:bg-gray-400"
+                          className="w-1/3 cursor-pointer h-full flex justify-center items-center text-center font-semibold font-sans text-[12px] md:text-[12px] lg:text-[24px] hover:bg-gray-400"
                         >
                           +
                         </div>
-                        <div className="w-1/3 h-full flex justify-center items-center text-center font-semibold font-sans text-[24px]">
+                        <div className="w-1/3 h-full flex justify-center items-center text-center font-semibold font-sans text-[12px] md:text-[12px] lg:text-[24px]">
                           {item.quantity}
                         </div>
                         <div
@@ -220,14 +220,14 @@ export default function CartItem() {
                               item.product.stock
                             )
                           }
-                          className="w-1/3 cursor-pointer h-full flex justify-center items-center text-center font-semibold font-sans text-[24px] hover:bg-gray-400"
+                          className="w-1/3 cursor-pointer h-full flex justify-center items-center text-center font-semibold font-sans text-[12px] md:text-[12px] lg:text-[24px] hover:bg-gray-400"
                         >
                           -
                         </div>
                       </div>
                       <div>
                         <Button
-                          className="bg-red-600 text-white h-[40px]"
+                          className="bg-red-600 text-white h-[30px] md:h-[20px] lg:h-[40px]"
                           variant="vancy"
                           size="default"
                           onClick={() => handleDelete(item.id)}
@@ -244,7 +244,7 @@ export default function CartItem() {
           ))}
         </div>
       </div>
-      <div className="sm:w-[90%] md:w-[90%] lg:w-[30%] h-9/12 gap-10 flex flex-col p-8 border">
+      <div className="w-[90%] md:w-[90%] lg:w-[30%] h-9/12 gap-10 flex flex-col p-8 border">
         <p className="font-bold text-[16px] font-sans">Order Summary</p>
         <div
           className="flex flex-col gap-2 mt-4 font-sans

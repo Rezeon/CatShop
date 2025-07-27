@@ -66,7 +66,7 @@ export default function DetailProduct() {
     );
 
   return (
-    <div className="w-full p-4 flex flex-col justify-around gap-2 md:flex-row font-serif">
+    <div className="w-full p-4 flex flex-col-reverse justify-around gap-2 md:flex-row lg:flex-row font-serif">
       <div className="lg:w-[40%] max-h-100vh w-full gap-5 relative">
         <div className="flex flex-col gap-2 mb-16">
           <Link href="/" className="block p-3 w-[40px] h-[40px]">
@@ -104,7 +104,7 @@ export default function DetailProduct() {
           </div>
           <p className="mb-2 text-sm font-sans">{productSelect.description}</p>
         </div>
-        <div className="flex justify-between w-full absolute bottom-2">
+        <div className="flex justify-between w-full mt-3">
           <div className="w-[30%] h-[60px]">
             <div className="w-full h-[52px] flex items-center border">
               <div
