@@ -163,13 +163,13 @@ export default function CartItem() {
 
 
   return (
-    <div className="p-6 flex gap-6 flex-col md:flex-col justify-center md:justify-center items-center md:items-center lg:flex-row lg:items-baseline lg:justify-between">
+    <div className="p-2 md:p-4 lg:p-6 flex gap-6 flex-col md:flex-col justify-center md:justify-center items-center md:items-center lg:flex-row lg:items-baseline lg:justify-between">
       <div className="w-[100%] md:w-[90%] lg:w-[50%] flex flex-col">
         <div className="font-bold text-[20px] w-full p-4 font-sans flex items-center text-center">
           Cart : {totalItem}
         </div>
 
-        <div className="flex flex-col gap-2 p-4">
+        <div className="flex flex-col gap-2 p-2">
           {cartItems?.map((item) => (
             <div key={item.id}>
               <div className="p-2 flex w-full h-[120px] md:h-[120px] lg:h-[160px] border">
@@ -184,10 +184,10 @@ export default function CartItem() {
 
                 <div className="w-[100%] h-full flex flex-col gap-1 md:gap-2 lg:gap-4 justify-start">
                   <div className="w-full flex items-center justify-between p-1">
-                    <p className="font-bold text-[12px] md:text-[12px] lg:text-[16px] font-sans">
+                    <p className="font-bold text-wrap text-[12px] md:text-[12px] lg:text-[16px] font-sans">
                       {item.product.name}
                     </p>
-                    <p className="font-bold text-[16px] font-sans">
+                    <p className="font-bold text-[12px] md:text-[16px] lg:text-[16px] font-sans">
                       Rp{item.product.price.toLocaleString("id-ID")}
                     </p>
                   </div>

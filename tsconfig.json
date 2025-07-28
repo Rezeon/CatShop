@@ -122,7 +122,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-, "components/login-form.tsx", "components/app-sidebar.jsx"  ],
+, "components/login-form.tsx", "components/app-sidebar.jsx", "components/ui/sidebar.tsx"  ],
   "exclude": [
     "node_modules"
   ]

@@ -1,10 +1,16 @@
-"use client";
-
 import * as React from "react";
-import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
+import { ChevronRight } from "lucide-react";
+
 import { SearchForm } from "@/components/search-form";
 import { VersionSwitcher } from "@/components/version-switcher";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { trpc } from "@/hooks/trpc";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 import {
   Sidebar,
   SidebarContent,
@@ -16,8 +22,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
+  SidebarTrigger
 } from "@/components/ui/sidebar";
-import { trpc } from "@/hooks/trpc";
 
 const data = {
   versions: ["1.0.1", "1.1.0-alpha", "2.0.0-beta1"],
@@ -37,7 +43,6 @@ const data = {
         { title: "Clothes", url: "/category/baju" },
         { title: "Shoes", url: "/category/sepatu" },
         { title: "Hat", url: "/category/topi" },
-        
       ],
     },
   ],
@@ -52,34 +57,47 @@ export function AppSidebar({ ...props }) {
   const handleLogin = () => {
     router.push("/login");
   };
-
   return (
-    <Sidebar side="" variant="floating" {...props}>
+    <Sidebar side="left" {...props}>
       <SidebarHeader>
-        <VersionSwitcher
-          versions={data.versions}
-          defaultVersion={data.versions[0]}
-        />
+        <SidebarTrigger className="-ml-1" />
+        <SearchForm />
       </SidebarHeader>
-
-      <SidebarContent>
+      <SidebarContent className="gap-0">
+        {/* We create a collapsible SidebarGroup for each parent. */}
         {data.navMain.map((item) => (
-          <SidebarGroup key={item.title}>
-            <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {item.items.map((item) => (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild isActive={item.isActive}>
-                      <a href={item.url}>{item.title}</a>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
+          <Collapsible
+            key={item.title}
+            title={item.title}
+            defaultOpen
+            className="group/collapsible"
+          >
+            <SidebarGroup>
+              <SidebarGroupLabel
+                asChild
+                className="group/label text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground text-sm"
+              >
+                <CollapsibleTrigger>
+                  {item.title}{" "}
+                  <ChevronRight className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-90" />
+                </CollapsibleTrigger>
+              </SidebarGroupLabel>
+              <CollapsibleContent>
+                <SidebarGroupContent>
+                  <SidebarMenu>
+                    {item.items.map((item) => (
+                      <SidebarMenuItem key={item.title}>
+                        <SidebarMenuButton asChild isActive={item.isActive}>
+                          <a href={item.url}>{item.title}</a>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    ))}
+                  </SidebarMenu>
+                </SidebarGroupContent>
+              </CollapsibleContent>
+            </SidebarGroup>
+          </Collapsible>
         ))}
-
         {user?.role === "ADMIN" && (
           <div className="px-2 mb-2">
             <Button
@@ -93,7 +111,6 @@ export function AppSidebar({ ...props }) {
         )}
         <div className="px-2 mb-2">
           {user ? (
-            
             <Button
               variant="vancy"
               className="w-full hover:bg-red-800 rounded-none"
@@ -102,13 +119,16 @@ export function AppSidebar({ ...props }) {
               Logout
             </Button>
           ) : (
-            <Button variant="vancy" className="w-full rounded-none font-sm" onClick={handleLogin}>
+            <Button
+              variant="vancy"
+              className="w-full rounded-none font-sm"
+              onClick={handleLogin}
+            >
               Login
             </Button>
           )}
         </div>
       </SidebarContent>
-
       <SidebarRail />
     </Sidebar>
   );

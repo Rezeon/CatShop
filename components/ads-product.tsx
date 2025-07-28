@@ -52,46 +52,61 @@ export default function AdsProduct() {
 
     return (
         <div className="flex flex-col items-center justify-center lg:p-4">
-            <Card className="w-[95%] md:w-[90%] lg:w-full h-100vh md:h-100vh   lg:h-1/3 md:p-2 lg:p-10 flex flex-col-reverse md:flex-col-reverse lg:flex-row justify-between items-center gap-4 rounded-none border-none shadow-none relative">
-                <div className="w-full md:w-full lg:w-1/2 h-1/2 flex flex-col gap-4 ">
-                    <Card className="h-1/3 w-full  font-sans p-4 border-none shadow-none bg-gray-100">
+            <div className="fixed bottom-0 left-0 w-full z-10" >
+
+                <DiscountSlider discount={discount ?? []} />
+            </div>
+            <Card className="w-[100%] md:w-[90%] lg:w-full h-fit md:h-100vh   lg:h-full md:p-2 lg:p-10 flex flex-col-reverse md:flex-col-reverse lg:flex-row justify-between items-center gap-4 rounded-none border-none shadow-none relative">
+                <div className="w-full md:w-full lg:w-1/2   flex flex-col gap-4 ">
+                    <Card className="w-full font-sans p-4 border-none shadow-none bg-gray-100 flex flex-col gap-4">
                         <AnimatePresence mode="wait">
-                            <motion.h2
+                            <motion.div
                                 key={index}
                                 initial={{ opacity: 0, x: 40 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 exit={{ opacity: 0, x: -40 }}
                                 transition={{ duration: 0.5 }}
-                                className=""
                             >
-                                <CardTitle className="text-start h-2/3 w-full font-bold text-3xl ">{current.name}</CardTitle>
-                                <CardDescription className="w-full h-1/3 text-start text-sm text-gray-400">
+                                <CardTitle className="text-start font-bold text-xl md:text-2xl lg:text-3xl ">
+                                    {current.name}
+                                </CardTitle>
+                                <CardDescription className="text-start text-sm text-gray-400">
                                     {current.description}
                                 </CardDescription>
-                            </motion.h2>
+                            </motion.div>
                         </AnimatePresence>
-                        <p className="font-sans font-medium ">Stock : {current.stock}</p>
-                        <Card className=" w-full h-1/2 flex flex-row gap-2  p-4 justify-around items-center">
-                            <p className="text-md font-bold">Rp {current.price.toLocaleString("id-ID")}</p>
-                            <Button size="" className="w-[40%] " onClick={handleShopNow} variant="vancy">
+
+                        <p className="font-sans font-medium">Stock : {current.stock}</p>
+
+                        <Card className="w-full flex flex-row gap-2 p-4 justify-around items-center">
+                            <p className="text-md font-bold">
+                                Rp {current.price.toLocaleString("id-ID")}
+                            </p>
+                            <Button
+                                size=""
+                                className="w-[40%]"
+                                onClick={handleShopNow}
+                                variant="vancy"
+                            >
                                 Shop Now
                             </Button>
                         </Card>
                     </Card>
+
                     <div className=" w-full h-1/2 p-1 gap-2 grid grid-cols-2 ">
-                        <Card className="w-full   h-fit flex flex-col items-center  gap-2 rounded-none">
+                        <Card className="w-full   h-100vh text-center flex flex-col items-center  gap-2 rounded-none">
                             <CardTitle className="font-bold text-2xl md:text-2xl lg:text-3xl font-mono">24/7</CardTitle>
                             <CardDescription className='font-mono text-gray-400 text-[10px] md:text-sm lg:text-sm'>Shoping Convinience</CardDescription>
                         </Card>
-                        <Card className="w-full   h-fit flex flex-col items-center  gap-2 rounded-none">
+                        <Card className="w-full   h-100vh text-center flex flex-col items-center  gap-2 rounded-none">
                             <CardTitle className="font-bold text-2xl md:text-2xl lg:text-3xl font-mono">OVER 1000+</CardTitle>
                             <CardDescription className='font-mono text-gray-400 text-[10px] md:text-sm lg:text-sm'>Trendsetting Styles</CardDescription>
                         </Card>
-                        <Card className="w-full   h-fit flex flex-col items-center  gap-2 rounded-none">
+                        <Card className="w-full   h-100vh text-center flex flex-col items-center  gap-2 rounded-none">
                             <CardTitle className="font-bold text-2xl md:text-2xl lg:text-3xl font-mono">99%</CardTitle>
                             <CardDescription className='font-mono text-gray-400 text-[10px] md:text-sm lg:text-sm'>Customer Satisfaction Rate</CardDescription>
                         </Card>
-                        <Card className="w-full   h-fit flex flex-col items-center  gap-2 rounded-none">
+                        <Card className="w-full   h-100vh text-center flex flex-col items-center  gap-2 rounded-none">
                             <CardTitle className="font-bold text-2xl md:text-2xl lg:text-3xl font-mono">30-DAY</CardTitle>
                             <CardDescription className='font-mono text-gray-400 text-[10px] md:text-sm lg:text-sm'>Hassle-Free Returns</CardDescription>
                         </Card>
@@ -127,7 +142,6 @@ export default function AdsProduct() {
                     </motion.div>
                 </AnimatePresence>
             </Card>
-            <DiscountSlider discount={discount ?? []} />
         </div>
     );
 }

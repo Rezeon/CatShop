@@ -88,7 +88,6 @@ export default function Page() {
   return (
     <div className="flex flex-1 flex-col gap-4 p-4">
       <AdsProduct />
-      <br />
       <div className="w-full flex justify-between">
         <Label className="font-bold text-3xl">Clothes</Label>
         <Link href="/category/baju" className="text-gray-500 font-semibold text-lg hover:underline font-mono">view</Link>
@@ -159,7 +158,7 @@ export default function Page() {
           <Label className=" font-bold text-2xl " >SEAMLESS EXPERIEANCE</Label>
           <p className="text-sm font-medium text-gray-400" >At Klothink, we`ve designed a straightforward shopping experience to make fashion accessible. Explore the journey from discovering the latest trends to receiving your handpicked styles with ease.</p>
         </div>
-        <div className="md:grid lg:grid grid gap-4 grid-cols-2 md:grid-cols-2 lg:grid-cols-4 w-full p-4 border shadow rounded-lg">
+        <div className="md:grid lg:grid grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 w-full p-4 border shadow rounded-lg">
           {pass.experience.map((item) => (
             <div key={item.no} className="w-[95%] bg-gray-100 flex flex-col gap-2 border p-2 rounded-lg">
               <AnimatePresence mode="wait">
@@ -170,7 +169,7 @@ export default function Page() {
                   transition={{ duration: 0.6 }}
                 >
                   <p className="font-mono text-4xl text-gray-400">{item.no}</p>
-                  <Label className="font-bold font-sans text-2xl">{item.title}</Label>
+                  <Label className="font-bold font-sans text-xl md:text-2xl lg:text-2xl">{item.title}</Label>
                   <p className="text-sm text-gray-400">{item.description}</p>
                 </motion.div>
               </AnimatePresence>
