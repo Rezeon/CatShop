@@ -26,8 +26,8 @@ export default function OrderHistory() {
         {orders.map((order) => (
           <Card className="w-full " key={order.id}>
             <CardHeader className="w-full "  >
-              <CardTitle className="flex justify-between items-center text-base">
-                <span className="text-gray-600">Order ID:</span>
+              <CardTitle className="flex flex-col md:flex-col lg:flex-row justify-between items-center text-base">
+                <span className="text-gray-600 ">Order ID:</span>
                 <span className="font-mono text-sm">{order.id}</span>
               </CardTitle>
             </CardHeader>

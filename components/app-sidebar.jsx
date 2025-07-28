@@ -63,7 +63,6 @@ export function AppSidebar({ ...props }) {
     <Sidebar side="left" {...props}>
       <SidebarHeader>
         <SidebarTrigger className="-ml-1" />
-        <SearchForm />
       </SidebarHeader>
       <SidebarContent className="gap-0">
         {/* We create a collapsible SidebarGroup for each parent. */}
