@@ -79,7 +79,7 @@ export default function EditOrder() {
     <div className="p-2 w-full mx-auto">
       <h1 className="text-2xl font-bold mb-6">Order History</h1>
 
-      <div className="w-full gap-2 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <div className="w-full gap-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
         {orders.map((order: Order) => (
           <Card className="w-full" key={order.id}>
             <CardHeader className={''}>

@@ -55,7 +55,7 @@ export default function AdminProductPage() {
         <div className=" w-full flex flex-col lg:flex-row gap-2 items-start">
           <AddDiscount />
           <ScrollArea className="w-full max-h-[800px] overflow-y-auto p-2 rounded-sm border">
-            <div className="w-full gap-2 grid grid-cols-3">
+            <div className="w-full gap-2 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
               {discount.map((dis: any) => (
                 <div key={dis.id}>
                   <DiscountEdit discount={dis ?? []} />
