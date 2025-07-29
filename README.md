@@ -1,4 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Chill Shop
+
+**Chill Shop** adalah sebuah web aplikasi e-commerce full-stack modern, dibangun dengan **Next.js**, **tRPC**, **Prisma**, **Tailwind CSS**, dan **Radix UI**.  
+Proyek ini dibuat untuk belajar, eksperimen, dan demonstrasi alur pengembangan aplikasi toko online end-to-end.
+
+**Live Demo:** [https://cat-shop-eta.vercel.app/](https://cat-shop-eta.vercel.app/)
+
+---
+
+## **Fitur**
+
+- **Product Management:** CRUD produk dengan stok & harga
+- **Shopping Cart & Checkout:** Tambah ke keranjang & riwayat pesanan
+- **Authentication:** Login & manajemen user
+- **Admin Dashboard:** Atur diskon,Update order history & status order
+- **Cloudinary Upload:** Upload gambar produk
+- **Payment gateway:** dengan Duitku
+- **API Typesafe:** tRPC dengan Zod validation
+- **UI Modern:** Tailwind CSS + Radix UI + Framer Motion
+
+---
+
+##  **Tech Stack**
+
+- **Framework:** [Next.js](https://nextjs.org/) (v15)
+- **Database ORM:** [Prisma](https://www.prisma.io/)
+- **Backend API:** [tRPC](https://trpc.io/)
+- **Auth & JWT:** `jsonwebtoken` & `bcryptjs`
+- **Payment gateway:** `Duitku`
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **UI Lib:** Radix UI
+- **Deploy:** [Vercel](https://vercel.com/)
+
+---
+
+## **Cara Menjalankan**
+
+**Clone repo**
+
+```bash
+git clone https://github.com/yourusername/chill-shop.git
+cd chill-shop
 
 ## Getting Started
 
