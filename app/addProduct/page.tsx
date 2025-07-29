@@ -2,12 +2,13 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import PreviewProduct from "@/components/preview-product";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import Link from "next/link";
-import { useState } from "react";
-
 import { trpc } from "@/hooks/trpc";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { useState } from "react";
+import PreviewProduct from "@/components/preview-product";
+import DiscountEdit from "@/components/ui/edit-discount";
+import EditOrderHistory from "@/components/edit-order";
 
 const AddProductForm = dynamic(() => import("@/components/add-product-form"), {
   ssr: false,
@@ -18,7 +19,14 @@ const AddDiscount = dynamic(() => import("@/components/add-discount"), {
 
 export default function AdminProductPage() {
   const { data: products } = trpc.product.getAll.useQuery();
+  const { data: discount } = trpc.discount.getAll.useQuery();
   const [selectedProduct, setSelectedProduct] = useState(null);
+
+  if (!discount) {
+    return (
+      <div>Data Kosong</div>
+    )
+  }
   return (
     <div className="p-4">
       <div className="flex gap-2 item-center justify-between">
@@ -44,8 +52,25 @@ export default function AdminProductPage() {
 
           </ScrollArea>
         </div>
-        <AddDiscount />
-
+        <div className=" w-full flex flex-col lg:flex-row gap-2 items-start">
+          <AddDiscount />
+          <ScrollArea className="w-full max-h-[800px] overflow-y-auto p-2 rounded-sm border">
+            <div className="w-full gap-2 grid grid-cols-3">
+              {discount.map((dis: any) => (
+                <div key={dis.id}>
+                  <DiscountEdit discount={dis ?? []} />
+                </div>
+              ))}
+            </div>
+          </ScrollArea>
+        </div>
+        <div className=" w-full items-start">
+          <ScrollArea className="w-full max-h-[800px] overflow-y-auto p-2 rounded-sm border">
+            <div className="w-full gap-2">
+              <EditOrderHistory />
+            </div>
+          </ScrollArea>
+        </div>
       </div>
     </div>
   );

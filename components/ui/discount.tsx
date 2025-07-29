@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { trpc } from "@/hooks/trpc";
+import { Button } from "./button";
 
 type Product = {
     id: string;
@@ -16,6 +18,7 @@ type Product = {
 export default function DiscountSlider({ discount }: { discount: Product[] }) {
     const discounted = discount.filter(p => (p.percentage ?? 0) > 0);
     const [index, setIndex] = useState(0);
+    const { data: user } = trpc.auth.getUser.useQuery();
 
     useEffect(() => {
         if (discounted.length <= 1) return;
@@ -57,7 +60,7 @@ export default function DiscountSlider({ discount }: { discount: Product[] }) {
                     className="text-center w-full items-center flex gap-1 text-[10px] md:text-sm lg:text-sm justify-center"
                 >
                     <p>{current.description}</p>|
-                    <p>Rp{current.amount}</p> 
+                    <p>Rp{current.amount}</p>
                     <p>{current.percentage}%</p> |
                     <p>Start at: {formattedStart}</p> |
                     <p>End at: {formattedEnd}</p> |

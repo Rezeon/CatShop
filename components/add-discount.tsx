@@ -62,7 +62,7 @@ export default function AddDiscount() {
 
     return (
         <div>
-            <Card className="w-full max-w-sm">
+            <Card className="w-full md:w-full lg:w-full ">
                 <CardHeader className=''>
                     <CardTitle className=''>Add Discount</CardTitle>
                     <CardDescription className=''>Enter your discount details</CardDescription>
