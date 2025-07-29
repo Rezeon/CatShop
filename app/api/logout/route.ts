@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 export async function GET() {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "http://localhost:3000";
+  const baseUrl = process.env.BASE_URL;
   const response = NextResponse.redirect(new URL("/login", baseUrl));
   response.cookies.set("token", "", {
     httpOnly: true,
