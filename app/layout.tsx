@@ -1,10 +1,14 @@
 "use client";
 
-import { Geist, Geist_Mono } from "next/font/google";
-import { ReactQueryClientProvider } from "@/utils/react-query-provider";
-import { Toaster } from "react-hot-toast";
 import "./globals.css";
 import Link from "next/link";
+
+import { Analytics } from '@vercel/analytics/next';
+import { Geist, Geist_Mono } from "next/font/google";
+import { useState } from "react";
+import { ReactQueryClientProvider } from "@/utils/react-query-provider";
+import { Toaster } from "react-hot-toast";
+
 import { AutocompleteProduct } from "@/components/search-product"
 import { AppSidebar } from "@/components/app-sidebar";
 import { Separator } from "@/components/ui/separator";
@@ -14,7 +18,6 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import ButtonCart from "@/components/ui/buttonCart"
-import { useState } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -66,6 +69,7 @@ export default function RootLayout({
               </header>
               <div onClick={() => setIsOpen(false)}
                 className="flex flex-1 flex-col gap-4 p-4 relative">{children}</div>
+              <Analytics />
             </SidebarInset>
           </SidebarProvider>
           <Toaster position="top-left" reverseOrder={false} />
